@@ -1,0 +1,74 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+    id 'org.springframework.experimental.aot' version '0.11.1'
+    id 'org.hibernate.orm'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'https://repo.spring.io/release' }
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    // Spring Boot's web application support
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    // Spring Boot's JPA support
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    // Spring Data REST support
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+
+    // PostgresSQL-specific connector for JPA
+    implementation('org.postgresql:postgresql:42.3.1')
+
+    // Lombok autogenerates things like getters and setters
+    compileOnly('org.projectlombok:lombok')
+
+    implementation('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.6.1')
+    implementation('com.okta.spring:okta-spring-boot-starter:2.1.4')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.security:spring-security-test')
+}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootBuildImage {
+    builder = 'paketobuildpacks/builder:tiny'
+    environment = ['BP_NATIVE_IMAGE': 'true']
+}
+
+hibernate {
+    enhance {
+        enableLazyInitialization = true
+        enableDirtyTracking = true
+        enableAssociationManagement = true
+        enableExtendedEnhancement = false
+    }
+}
