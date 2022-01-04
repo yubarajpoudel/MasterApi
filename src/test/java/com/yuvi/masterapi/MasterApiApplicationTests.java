@@ -1,4 +1,4 @@
-package com.example.masterapi;
+package com.yuvi.masterapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

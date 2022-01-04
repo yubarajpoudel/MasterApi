@@ -1,4 +1,4 @@
-package com.example.masterapi.domain;
+package com.yuvi.masterapi.domain;
 
 import javax.persistence.*;
 

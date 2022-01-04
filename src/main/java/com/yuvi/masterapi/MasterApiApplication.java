@@ -1,4 +1,4 @@
-package com.example.masterapi;
+package com.yuvi.masterapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

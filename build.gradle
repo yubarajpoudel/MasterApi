@@ -42,11 +42,9 @@ dependencies {
     // Lombok autogenerates things like getters and setters
     compileOnly('org.projectlombok:lombok')
 
-    implementation('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.6.1')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation('com.okta.spring:okta-spring-boot-starter:2.1.4')
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.springframework.security:spring-security-test')
+    implementation "io.jsonwebtoken:jjwt:0.9.1"
 }
 
 test {
